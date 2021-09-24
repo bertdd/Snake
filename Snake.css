@@ -1,0 +1,12 @@
+﻿.cell
+{
+  height: 12px;
+  width: 12px;
+  background-color: lightblue;
+}
+
+.snake {
+  height: 12px;
+  width: 12px;
+  background-color: black;
+}

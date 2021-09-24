@@ -4,12 +4,12 @@ require('Segment.php');
 
 class Snake
 {
-    function Add(Segment $segment)
+    public function Add(Segment $segment)
     {
-        $this->Segments[] = $segment; 
+        $this->Segments[] = $segment;
     }
 
-    function __toString() : string
+    public function __toString() : string
     {
         $result = "";
         $first = true;
@@ -20,6 +20,18 @@ class Snake
         }
 
         return $result;
+    }
+
+    public function IsSnake(int $x, int $y) : bool
+    {
+        foreach ($this->Segments as $segment)
+        {
+            if ($segment->IsSnake($x, $y))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private array $Segments = [];

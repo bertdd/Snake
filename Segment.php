@@ -7,8 +7,10 @@ class Segment
 {
     public function __construct (Point $start, Point $end)
     {
-        $this->start = $start;
-        $this->end = $end;
+        $this->startX = min($start->X, $end->X);
+        $this->endX = max($start->X, $end->X);
+        $this->startY = min($start->Y, $end->Y);
+        $this->endY = max($start->Y, $end->Y);
 
         if (!($this->IsHorizontal() || $this->IsVertical()))
         {
@@ -16,22 +18,29 @@ class Segment
         }
     }
 
-    public function __toString() : string
-    {
-        return $this->start . ' - ' . $this->end;
-    }
-
     public function IsVertical() : bool
     {
-        return $this->start->X == $this->end->X;
+        return $this->startX == $this->endX;
     }
 
     public function IsHorizontal() : bool
     {
-        return $this->start->Y == $this->end->Y;
+        return $this->startY == $this->endY;
     }
 
-    public Point $start;
+    public function IsSnake(int $x, int $y)
+    {
+        return
+            ($y == $this->startY && $x >= $this->startX && $x <= $this->endX)
+               ||
+            ($x == $this->startX && $y >= $this->startY && $y <= $this->endY);
+    }
 
-    public Point $end;
+    private int $startX;
+
+    private int $endX;
+
+    private int $startY;
+
+    private int $endY;
 }
