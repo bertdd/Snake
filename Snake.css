@@ -6,7 +6,24 @@
 }
 
 .snake {
-  height: 12px;
-  width: 12px;
   background-color: black;
 }
+
+.button {
+  height: 40px;
+  width: 80px;
+}
+
+.buttonWithText
+{
+  text-align: center;
+  font-family: 'Lucida Sans';
+  background-color: lightgoldenrodyellow;
+}
+
+.buttonPad
+{
+  width: 600px;
+  background-color: blue;
+}
+

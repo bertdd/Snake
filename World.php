@@ -17,7 +17,7 @@ class World
 
     public function RenderCell(int $x, int $y) : string
     {
-        $style = $this->snake->IsSnake($x, $y) ? "snake" : "cell";
+        $style = $this->snake->IsSnake($x, $y) ? "cell snake" : "cell";
         return "<td class='" . $style . "'/>";
     }
 
