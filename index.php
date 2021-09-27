@@ -1,23 +1,18 @@
 <link rel="stylesheet" href="snake.css" />
 <?php
-use function CommonMark\Render;
 
-require('snake.php');
 require('world.php');
 require('buttons.php');
 
-function InitialSnake() : Snake
-{
-    $snake = new Snake();
+$world = !isset($_SESSION["world"]) ?
+   $_SESSION["world"] = new World(50, 50) : $_SESSION["world"];
 
-    $snake->Add(new Segment(new Point(7,16), new Point(7,30)));
-    $snake->Add(new Segment(new Point(7, 30), new Point(45, 30)));
-    $snake->Add(new Segment(new Point(45, 30), new Point(45, 5)));
-    return $snake;
-}
-
-$world = new World(50, 50, InitialSnake());
 $buttons = new Buttons();
+
+if (isset($_GET["dir"]))
+{
+    $world->MoveSnake($_GET["dir"]);
+}
 
 $world->Render();
 $buttons->Render();

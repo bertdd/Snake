@@ -34,5 +34,15 @@ class Snake
         return false;
     }
 
+    public function Up()
+    {
+        
+    }
+
+    function Head() : Point
+    {
+        return $this->Segments[0]->start;
+    }
+
     private array $Segments = [];
 }

@@ -10,7 +10,7 @@ class Buttons
 
     public function Button(string $key) : string
     {
-        return "<td><input type='submit' value='" . $key . "' class='button buttonWithText'></td>";
+        return "<td><input type='submit' name='dir' value='" . $key . "' class='button buttonWithText'></td>";
     }
 
     public function Render()

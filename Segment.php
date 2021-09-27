@@ -7,6 +7,7 @@ class Segment
 {
     public function __construct (Point $start, Point $end)
     {
+        $this->start = $start;
         $this->startX = min($start->X, $end->X);
         $this->endX = max($start->X, $end->X);
         $this->startY = min($start->Y, $end->Y);
@@ -43,4 +44,6 @@ class Segment
     private int $startY;
 
     private int $endY;
+
+    public Point $start;
 }
