@@ -36,7 +36,7 @@ class Snake
 
     public function Up()
     {
-        
+
     }
 
     function Head() : Point

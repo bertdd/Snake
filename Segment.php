@@ -1,7 +1,7 @@
 <?php
 
-require('point.php');
-require('snakeException.php');
+require_once('point.php');
+require_once('snakeException.php');
 
 class Segment
 {

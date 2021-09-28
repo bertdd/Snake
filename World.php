@@ -1,7 +1,8 @@
 <?php
 
 require_once('snakeException.php');
-require_once('point.php');
+require_once('snake.php');
+require_once('vector.php');
 
 class World
 {
@@ -54,6 +55,29 @@ class World
         $snake->Add(new Segment(new Point(7, 30), new Point(45, 30)));
         $snake->Add(new Segment(new Point(45, 30), new Point(45, 5)));
         return $snake;
+    }
+
+    private function GetVector(string $direction) : Vector
+    {
+        return [
+            "UP" => new Vector(0, -1),
+            "RIGHT" => new Vector(1, 0),
+            "DOWN" => new Vector(0, 1),
+            "LEFT" => new Vector(-1, 0)
+           ][$direction];
+    }
+
+    public function MoveSnake(string $direction)
+    {
+        $v = $this->GetVector($direction);
+        $head = $this->snake->Head();
+        $x = $head->X + $v->X;
+        $y = $head->Y + $v->Y;
+        $point = new Point($x, $y);
+        if ($this->OnWorld($point))
+        {
+            echo $point; 
+        }
     }
 
     private int $width;
