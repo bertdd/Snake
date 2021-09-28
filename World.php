@@ -50,6 +50,18 @@ class World
         return $this->CoordinatesOnWorld($point->X, $point->Y);
     }
 
+    public function MoveSnake(string $direction)
+    {
+        $vector = $this->GetVector($direction);
+        $snake = $this->snake;
+        $head = $snake->Head();
+        $newHead = new Point($head->X + $vector->X, $head->Y + $vector->Y);
+        if ($this->OnWorld($newHead) && !$snake->OnSnake($newHead))
+        {
+            $snake->Move($newHead);
+        }
+    }
+
     private function InitialSnake() : Snake
     {
         $snake = new Snake();
@@ -68,18 +80,6 @@ class World
             "DOWN" => new Vector(0, 1),
             "LEFT" => new Vector(-1, 0)
            ][$direction];
-    }
-
-    public function MoveSnake(string $direction)
-    {
-        $vector = $this->GetVector($direction);
-        $snake = $this->snake;
-        $head = $snake->Head();
-        $point = new Point($head->X + $vector->X, $head->Y + $vector->Y);
-        if ($this->OnWorld($point) && !$snake->OnSnake($point))
-        {
-            $snake->Move($point);
-        }
     }
 
     private int $width;

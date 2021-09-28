@@ -40,7 +40,8 @@ class Snake
 
     public function Move(Point $to)
     {
-        if ($this->ExtendSegment($to))
+        // Set a new starting point if we can extend the segment, if not create a new segment.
+        if ($this->CanSegmentBeExtended($to))
         {
             $this->Segments[0]->SetStart($to);
         }
@@ -48,8 +49,12 @@ class Snake
         {
             $this->NewSegment($to);
         }
+
+        // Shrink the last segment
         $lastSegment = end($this->Segments);
         $lastSegment->Shrink();
+
+        // Remove the last segment if its size hase become insignificant
         if ($lastSegment->Length() == 0)
         {
             unset($this->Segments[count($this->Segments) - 1]);
@@ -76,7 +81,7 @@ class Snake
         $this->Segments[0] = new Segment($to, $this->Head());
     }
 
-    private function ExtendSegment(Point $to) : bool
+    private function CanSegmentBeExtended(Point $to) : bool
     {
         $firstSegment = $this->Segments[0];
         return ($firstSegment->IsVertical()) ?
