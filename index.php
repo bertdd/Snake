@@ -4,8 +4,10 @@
 require('world.php');
 require('buttons.php');
 
-$world = !isset($_SESSION["world"]) ?
-   $_SESSION["world"] = new World(50, 50) : $_SESSION["world"];
+session_start();
+
+$world = isset($_SESSION["world"]) ?  $_SESSION["world"] :  new World(50, 50);
+$_SESSION["world"] = $world;
 
 $buttons = new Buttons();
 

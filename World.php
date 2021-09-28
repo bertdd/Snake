@@ -19,7 +19,9 @@ class World
 
     public function RenderCell(int $x, int $y) : string
     {
-        $style = $this->snake->IsSnake($x, $y) ? "cell snake" : "cell";
+        $snake = $this->snake;
+        $style = $snake->IsSnake($x, $y) ?
+            $snake->IsHead($x, $y) ? "cell snake head" : "cell snake" : "cell";
         return "<td class='" . $style . "'/>";
     }
 
@@ -39,7 +41,8 @@ class World
 
     public function CoordinatesOnWorld(int $x, int $y) : bool
     {
-        return $x >= 0 && $y >= 0 && $x < $this->width && $y <= $this->height;
+        return $x >= 0 && $y >= 0 &&
+            $x < $this->width && $y <= $this->height;
     }
 
     public function OnWorld(Point $point) : bool
@@ -69,14 +72,13 @@ class World
 
     public function MoveSnake(string $direction)
     {
-        $v = $this->GetVector($direction);
-        $head = $this->snake->Head();
-        $x = $head->X + $v->X;
-        $y = $head->Y + $v->Y;
-        $point = new Point($x, $y);
-        if ($this->OnWorld($point))
+        $vector = $this->GetVector($direction);
+        $snake = $this->snake;
+        $head = $snake->Head();
+        $point = new Point($head->X + $vector->X, $head->Y + $vector->Y);
+        if ($this->OnWorld($point) && !$snake->OnSnake($point))
         {
-            echo $point; 
+            $snake->Move($point);
         }
     }
 

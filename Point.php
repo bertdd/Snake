@@ -4,10 +4,6 @@ class Point
 {
     public function __construct(int $x, int $y)
     {
-        if ($x < 0 || $y < 0)
-        {
-            throw new Exception ("Invalid Coordinate ");
-        }
         $this->X = $x;
         $this->Y = $y;
     }
