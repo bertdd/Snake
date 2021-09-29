@@ -3,6 +3,7 @@
 require_once('snakeException.php');
 require_once('snake.php');
 require_once('vector.php');
+require_once('vegetable.php');
 
 class World
 {
@@ -15,13 +16,20 @@ class World
         $this->width = $width;
         $this->height = $height;
         $this->snake = $this->InitialSnake();
+
+        for ($i = 0; $i < 10; $i++)
+        {
+            $this->vegetables[] = new Vegetable("chives", 2, 
+                new Point(rand(0, $width -1), rand(0, $height - 1)));
+        }
     }
 
     public function RenderCell(int $x, int $y) : string
     {
         $snake = $this->snake;
         $style = $snake->IsSnake($x, $y) ?
-            $snake->IsHead($x, $y) ? "cell snake head" : "cell snake" : "cell";
+            $snake->IsHead($x, $y) ? "cell snake head" : "cell snake" : 
+            ($this->IsVegetable($x, $y) ? "cell vegie" : "cell");
         return "<td class='" . $style . "'/>";
     }
 
@@ -82,11 +90,26 @@ class World
            ][$direction];
     }
 
+    private function IsVegetable(int $x, int $y)
+    {
+        foreach ($this->vegetables as $vegetable)
+        {
+            if ($vegetable->location->X == $x &&
+                ($vegetable->location->Y == $y))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private int $width;
 
     private int $height;
 
     private Snake $snake;
+
+    private array $vegetables;
 }
 
 ?>

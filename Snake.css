@@ -2,15 +2,19 @@
 {
   height: 12px;
   width: 12px;
-  background-color: lightblue;
+  background-color: black;
 }
 
 .snake {
-  background-color: black;
+  background-color: white;
 }
 
 .head {
   background-color: red;
+}
+
+.vegie {
+  background-color: green;
 }
 
 .button {
