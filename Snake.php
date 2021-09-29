@@ -38,16 +38,16 @@ class Snake
         return false;
     }
 
-    public function Move(Point $to)
+    public function Move(Point $newHead)
     {
         // Set a new starting point if we can extend the segment, if not create a new segment.
-        if ($this->CanSegmentBeExtended($to))
+        if ($this->CanSegmentBeExtended($newHead))
         {
-            $this->Segments[0]->SetStart($to);
+            $this->Segments[0]->SetStart($newHead);
         }
         else
         {
-            $this->NewSegment($to);
+            $this->NewSegment($newHead);
         }
 
         // Shrink the last segment
