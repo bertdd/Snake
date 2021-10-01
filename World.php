@@ -50,7 +50,7 @@ class World
     public function CoordinatesOnWorld(int $x, int $y) : bool
     {
         return $x >= 0 && $y >= 0 &&
-            $x < $this->width && $y <= $this->height;
+            $x < $this->width && $y < $this->height;
     }
 
     public function OnWorld(Point $point) : bool

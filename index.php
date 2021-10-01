@@ -2,24 +2,27 @@
     <script>
     document.addEventListener('keyup', logKey);
 
+    function Move(dir) {
+        window.location.href = "/?dir=" + dir;
+    }
+
     function logKey(e) {
         switch (e.key) {
 
             case "ArrowUp":
-                window.location.href = "/?dir=UP"
+                Move("UP");
                 break;
 
             case "ArrowDown":
-                window.location.href = "/?dir=DOWN"
+                Move("DOWN");
                 break;
 
             case "ArrowLeft":
-                window.location.href = "/?dir=LEFT"
+                Move("LEFT");
                 break;
 
             case "ArrowRight":
-                window.location.href = "/?dir=RIGHT"
-                //alert("RIGHT");
+                Move("RIGHT");
                 break;
         }
 
@@ -28,6 +31,7 @@
 </head>
 
 <link rel="stylesheet" href="snake.css" />
+
 <?php
 
 require('world.php');
