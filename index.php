@@ -1,3 +1,32 @@
+<head>
+    <script>
+    document.addEventListener('keyup', logKey);
+
+    function logKey(e) {
+        switch (e.key) {
+
+            case "ArrowUp":
+                window.location.href = "/?dir=UP"
+                break;
+
+            case "ArrowDown":
+                window.location.href = "/?dir=DOWN"
+                break;
+
+            case "ArrowLeft":
+                window.location.href = "/?dir=LEFT"
+                break;
+
+            case "ArrowRight":
+                window.location.href = "/?dir=RIGHT"
+                //alert("RIGHT");
+                break;
+        }
+
+    }
+    </script>
+</head>
+
 <link rel="stylesheet" href="snake.css" />
 <?php
 
@@ -21,6 +50,6 @@ if (isset($_GET["dir"]))
 $world->Render();
 
 // show the buttons
-$buttons = new Buttons();
-$buttons->Render();
+//$buttons = new Buttons();
+//$buttons->Render();
 ?>
