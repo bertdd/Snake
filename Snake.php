@@ -21,16 +21,11 @@ class Snake
         return $result;
     }
 
-    public function OnSnake(Point $point)
-    {
-        return $this->IsSnake($point->X, $point->Y);
-    }
-
-    public function IsSnake(int $x, int $y) : bool
+    public function IsSnake(Point $point) : bool
     {
         foreach ($this->Segments as $segment)
         {
-            if ($segment->IsSnake($x, $y))
+            if ($segment->IsSnake($point))
             {
                 return true;
             }
@@ -61,10 +56,10 @@ class Snake
         }
     }
 
-    public function IsHead(int $x, int $y)
+    public function IsHead(Point $point)
     {
         $head = $this->Head();
-        return $head->X == $x && $head->Y == $y;
+        return $head->X == $point->X && $head->Y == $point->Y;
     }
 
     public function Head() : Point

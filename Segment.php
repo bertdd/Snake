@@ -27,8 +27,10 @@ class Segment
         return $this->startY == $this->endY;
     }
 
-    public function IsSnake(int $x, int $y)
+    public function IsSnake(Point $point)
     {
+        $x = $point->X;
+        $y = $point->Y;
         return
             ($y == $this->startY && $x >= $this->startX && $x <= $this->endX)
                ||

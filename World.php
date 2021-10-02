@@ -13,24 +13,25 @@ class World
         {
             throw new SnakeException("illegal dimensions for world");
         }
+
         $this->width = $width;
         $this->height = $height;
         $this->snake = $this->InitialSnake();
 
         for ($i = 0; $i < 10; $i++)
         {
-            $this->vegetables[] = new Vegetable("chives", 2, 
-                new Point(rand(0, $width -1), rand(0, $height - 1)));
+            $this->vegetables[] = new Vegetable("chives", 2,
+                new Point(rand(0, $width - 1), rand(0, $height - 1)));
         }
     }
 
-    public function RenderCell(int $x, int $y) : string
+    private function RenderCell(Point $point) : string
     {
         $snake = $this->snake;
-        $style = $snake->IsSnake($x, $y) ?
-            $snake->IsHead($x, $y) ? "cell snake head" : "cell snake" : 
-            ($this->IsVegetable($x, $y) ? "cell vegie" : "cell");
-        return "<td class='" . $style . "'/>";
+        $style = $snake->IsSnake($point) ?
+            $snake->IsHead($point) ? "cell snake head" : "cell snake" :
+            ($this->IsVegetable($point) ? "cell vegie" : "cell");
+        return "<td class='$style'/>";
     }
 
     public function Render()
@@ -41,32 +42,31 @@ class World
             echo '<tr>';
             for ($x = 0; $x < $this->width; $x++)
             {
-                echo $this->RenderCell($x, $y);
+                echo $this->RenderCell(new Point($x, $y));
             }
             echo '</tr>';
         }
     }
 
-    public function CoordinatesOnWorld(int $x, int $y) : bool
+    private function OnWorld(Point $point) : bool
     {
-        return $x >= 0 && $y >= 0 &&
-            $x < $this->width && $y < $this->height;
-    }
-
-    public function OnWorld(Point $point) : bool
-    {
-        return $this->CoordinatesOnWorld($point->X, $point->Y);
+        return $point->X >= 0 && $point->X <= $this->width &&
+               $point->Y >= 0 && $point->Y <= $this->height;
     }
 
     public function MoveSnake(string $direction)
     {
         $vector = $this->GetVector($direction);
         $snake = $this->snake;
-        $head = $snake->Head();
-        $newHead = new Point($head->X + $vector->X, $head->Y + $vector->Y);
-        if ($this->OnWorld($newHead) && !$snake->OnSnake($newHead))
+        $head = $this->snake->Head();
+        $newhead = $head->Add($vector);
+        if ($this->OnWorld($newhead) && !$this->snake->IsSnake($newhead))
         {
-            $snake->Move($newHead);
+            if ($this->IsVegetable($newhead))
+            {
+
+            }
+            $snake->Move($newhead);
         }
     }
 
@@ -90,12 +90,11 @@ class World
            ][$direction];
     }
 
-    private function IsVegetable(int $x, int $y)
+    private function IsVegetable(Point $point)
     {
         foreach ($this->vegetables as $vegetable)
         {
-            if ($vegetable->location->X == $x &&
-                ($vegetable->location->Y == $y))
+            if ($vegetable->location->Equals($point))
             {
                 return true;
             }

@@ -10,7 +10,17 @@ class Point
 
     public function __toString() : string
     {
-        return sprintf("(%d , %d)", $this->X, $this->Y);
+        return "($this->X , $this->Y)";
+    }
+
+    public function Equals(Point $point)
+    {
+        return $this->X == $point->X && $this->Y == $point->Y;
+    }
+
+    public function Add(Vector $vector) : Point
+    {
+        return new Point($this->X + $vector->X, $this->Y + $vector->Y);
     }
 
     public int $X;
