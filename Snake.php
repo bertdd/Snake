@@ -4,9 +4,12 @@ require('Segment.php');
 
 class Snake
 {
-    public function Add(Segment $segment)
+    public function __construct(array $segments)
     {
-        $this->Segments[] = $segment;
+        foreach ($segments as $segment)
+        {
+            $this->Segments[] = $segment;
+        }
     }
 
     public function __toString() : string

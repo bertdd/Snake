@@ -17,11 +17,15 @@ class World
         $this->width = $width;
         $this->height = $height;
         $this->snake = $this->InitialSnake();
+        $this->Seed(10);
+    }
 
-        for ($i = 0; $i < 10; $i++)
+    private function Seed(int $seeds)
+    {
+        for ($i = 0; $i < $seeds; $i++)
         {
             $this->vegetables[] = new Vegetable("chives", 2,
-                new Point(rand(0, $width - 1), rand(0, $height - 1)));
+                new Point(rand(0, $this->width - 1), rand(0, $this->height - 1)));
         }
     }
 
@@ -72,12 +76,13 @@ class World
 
     private function InitialSnake() : Snake
     {
-        $snake = new Snake();
-
-        $snake->Add(new Segment(new Point(7,16), new Point(7,30)));
-        $snake->Add(new Segment(new Point(7, 30), new Point(45, 30)));
-        $snake->Add(new Segment(new Point(45, 30), new Point(45, 5)));
-        return $snake;
+        return new Snake(
+            [
+              new Segment(new Point(7,16), new Point(7,30)),
+              new Segment(new Point(7, 30), new Point(45, 30)),
+              new Segment(new Point(45, 30), new Point(45, 5))
+            ]
+        );
     }
 
     private function GetVector(string $direction) : Vector

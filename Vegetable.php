@@ -13,7 +13,7 @@ class Vegetable
 
     public string $name;
 
-    public int $points;
+    public int $score;
 
     public Point $location;
 }
